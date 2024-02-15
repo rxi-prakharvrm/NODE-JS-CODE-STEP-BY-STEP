@@ -129,3 +129,94 @@ http.createServer((req, res) => {
     console.log('Server is running on port 4500');
 });
 ```
+
+## Interview Questions
+
+**What is Package.json?**
+**Ans:** This json file contains all the dependencies (non-core-modules) that the current node app is using.
+
+**Should I push node-modules folder to github?**
+**Ans:** No
+
+**How can we restore node-modules folder if deleted?**
+**Ans:** By running the following command:
+
+```terminal
+npm install
+```
+
+## Status Codes
+**200** - Success: The request has succeeded.
+**201** - Created: The request has been fulfilled and has resulted in one or more new resources being created.
+**204** - No Content: The server successfully processed the request and is not returning any content.
+**301** - Moved Permanently: The requested resource has been permanently moved to a new location.
+**302** - Found (Previously "Moved Temporarily"): The requested resource resides temporarily under a different URI.
+**400** - Bad Request: The server cannot process the request due to a client error, such as malformed syntax.
+**401** - Unauthorized: The request requires user authentication.
+**403** - Forbidden: The server understood the request, but refuses to authorize it.
+**404** - Not Found: The requested resource could not be found on the server.
+**405** - Method Not Allowed: The method specified in the request is not allowed for the resource identified by the URI.
+**500** - Internal Server Error: A generic error message indicating that the server encountered an unexpected condition.
+**503** - Service Unavailable: The server is currently unable to handle the request due to temporary overloading or maintenance of the server.
+
+### <kbd>process</kbd> Module
+
+
+In Node.js, a process refers to an instance of a running computer program or application. Node.js allows you to manage processes through its built-in process module, which provides various functionalities for interacting with the current Node.js process.
+
+Some common functionalities provided by the process module include:
+
+**Accessing Command Line Arguments:** You can access command-line arguments passed to the Node.js process using process.argv.
+
+**Environment Variables:** You can access environment variables of the process using process.env. Environment variables are useful for configuration, storing sensitive information, or controlling the behavior of the application.
+
+**Exiting the Process:** You can exit the Node.js process using process.exit([exitCode]). This function allows you to gracefully terminate the application.
+
+**Handling Uncaught Exceptions:** Node.js provides a way to handle uncaught exceptions using process.on('uncaughtException', callback). This allows you to log errors or perform cleanup operations before exiting the process.
+
+**Listening for Signals:** You can listen for signals such as SIGINT (Ctrl+C), SIGTERM, etc., using process.on('SIGINT', callback), process.on('SIGTERM', callback), etc. This allows you to perform cleanup operations when the process receives these signals.
+
+**Memory Usage:** You can get information about memory usage of the process using process.memoryUsage().
+
+**CPU Usage:** You can get information about CPU usage of the process using process.cpuUsage().
+
+**Event Loop Information:** You can get information about the event loop using process.nextTick() and process.on('beforeExit', callback).
+
+## Interview Questions
+
+**Is it possible to access other drives which your local host is running on drive C?**
+**Ans:** If our local server is running on C Drive, we cannot access other drives.
+
+## CRUD operations with file system
+
+```javascript
+const fs = require('fs');
+const path = require('path');
+const dirPath = path.join(__dirname, 'crud');
+const filePath = `${dirPath}/data.txt`;
+
+// Create a directory
+fs.writeFileSync(filePath, "Hello World!");
+
+// Read the file
+fs.readFile(filePath, 'utf-8', (err, file) => {
+    if(!err) {
+        console.log(file);
+    } else {
+        console.log("Error occurred!");
+    }
+})
+
+// rename the file
+fs.rename(filePath, `${dirPath}/file.txt`, (err) => {
+    console.log("File renamed successfully!");
+});
+
+// delete the file
+fs.unlinkSync(`${dirPath}/file.txt`, (err) => {
+    if(err) {
+        console.log(err);
+    }
+    console.log("File deleted successfully!");
+})
+```

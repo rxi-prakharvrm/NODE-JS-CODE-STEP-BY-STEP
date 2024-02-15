@@ -1,9 +1,29 @@
-const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const dirPath = path.join(__dirname, 'crud');
+const filePath = `${dirPath}/data.txt`;
 
-http.createServer((req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.write('Hello World');
-    res.end();
-}).listen(4500, () => {
-    console.log('Server is running on port 4500');
+// Create a directory
+fs.writeFileSync(filePath, "Hello World!");
+
+// Read the file
+fs.readFile(filePath, 'utf-8', (err, file) => {
+    if(!err) {
+        console.log(file);
+    } else {
+        console.log("Error occurred!");
+    }
+})
+
+// rename the file
+fs.rename(filePath, `${dirPath}/file.txt`, (err) => {
+    console.log("File renamed successfully!");
 });
+
+// delete the file
+fs.unlinkSync(`${dirPath}/file.txt`, (err) => {
+    if(err) {
+        console.log(err);
+    }
+    console.log("File deleted successfully!");
+})

@@ -1,0 +1,24 @@
+{
+  "name": "node-js-code-step-by-step",
+  "version": "1.0.0",
+  "description": "- Node is not a language\r - This is a Server (Runtime) Environment\r - Node JS can connect with databases\r - Code and sytax is very similar to JavaScript but not exactly the same\r - Node JS is free and open-source\r - Node JS uses Chrome's V8 Engine to execute code\r - Node JS is mostly used for creating API's\r - We can connect the same database with Web App and Mobile App\r - Node JS is superfast for creating API's\r - With Node JS and JavaScript, you can become Full Stack Developer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rxi-prakharvrm/NODE-JS-CODE-STEP-BY-STEP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rxi-prakharvrm/NODE-JS-CODE-STEP-BY-STEP/issues"
+  },
+  "homepage": "https://github.com/rxi-prakharvrm/NODE-JS-CODE-STEP-BY-STEP#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "simple-node-logger": "^21.8.12"
+  }
+}
