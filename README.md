@@ -297,5 +297,147 @@ app.listen(3000, () => {
 })
 ```
 
-## Render HTML and JSON
+## Render HTML pages after removing extensions in URL
+
+```javascript
+const express = require('express');
+const path = require('path');
+const app = express();
+
+// path to public directory path
+const publicPath = path.join(__dirname, "public");
+
+// To load static content from publicPath
+app.use(express.static(publicPath));
+
+app.get("", (req, res) => {
+    res.sendFile(`${publicPath}/index.html`);
+})
+
+app.get("/about", (req, res) => {
+    res.sendFile(`${publicPath}/about.html`);
+})
+
+app.get("/contact", (req, res) => {
+    res.sendFile(`${publicPath}/contact.html`);
+})
+
+app.get("*", (_, res) => {
+    res.sendFile(`${publicPath}/404.html`);
+})
+
+app.listen(3000, () => {
+    console.log("App is running on port 3000");
+})
+```
+
+## Template Engines (EJS)
+
+- They are used to create dynamic pages
+  
+**Note**: Template engines are also npm packages that need to be installed first to use.
+
+<kbd>index.js</kbd>
+
+```javascript
+const express = require('express');
+const path = require('path');
+const app = express();
+
+// path to public directory path
+const publicPath = path.join(__dirname, "public");
+
+app.set("view engine", "ejs")
+
+// To load static content from publicPath
+app.use(express.static(publicPath));
+
+app.get("", (req, res) => {
+    res.sendFile(`${publicPath}/index.html`);
+})
+
+app.get("/profile", (req, res) => {
+    const user = {
+        name: "John Doe",
+        email: "john@gmail.com",
+        location: "USA",
+        skills: ["HTML", "CSS", "JS", "Node.js", "React", "C++", "Python"]
+    }
+    res.render("profile", {user});
+})
+
+app.get("/login", (req, res) => {
+    res.render("login");
+})
+
+app.get("/about", (req, res) => {
+    res.sendFile(`${publicPath}/about.html`);
+})
+
+app.get("/contact", (req, res) => {
+    res.sendFile(`${publicPath}/contact.html`);
+})
+
+app.get("*", (_, res) => {
+    res.sendFile(`${publicPath}/404.html`);
+})
+
+app.listen(3000, () => {
+    console.log("App is running on port 3000");
+})
+```
+
+<kbd>profile.ejs</kbd>
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+</head>
+<body>
+    <%- include('common/header'); %>
+    <h1>Welcome to your profile</h1>
+    <p>Username: <%= user.name %></p>
+    <p>Email: <%= user.email %></p>
+    <p>Location: <%= user.location %></p>
+    <h2>My Skills</h2>
+    <ul>
+        <% user.skills.forEach(skill => { %>
+            <li><%= skill %></li>
+        <% }) %>
+    </ul>
+</body>
+</html>
+```
+
+<kbd>login.ejs</kbd>
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+</head>
+<body>
+    <%- include('common/header'); %>
+    <h1>Welcome to your profile</h1>
+    <p>Username: <%= user.name %></p>
+    <p>Email: <%= user.email %></p>
+    <p>Location: <%= user.location %></p>
+    <h2>My Skills</h2>
+    <ul>
+        <% user.skills.forEach(skill => { %>
+            <li><%= skill %></li>
+        <% }) %>
+    </ul>
+</body>
+</html>
+```
+
+## Middleware
 
