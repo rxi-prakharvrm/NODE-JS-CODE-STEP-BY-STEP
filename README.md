@@ -147,16 +147,27 @@ npm install
 
 ## Status Codes
 **200** - Success: The request has succeeded.
+
 **201** - Created: The request has been fulfilled and has resulted in one or more new resources being created.
+
 **204** - No Content: The server successfully processed the request and is not returning any content.
+
 **301** - Moved Permanently: The requested resource has been permanently moved to a new location.
+
 **302** - Found (Previously "Moved Temporarily"): The requested resource resides temporarily under a different URI.
+
 **400** - Bad Request: The server cannot process the request due to a client error, such as malformed syntax.
+
 **401** - Unauthorized: The request requires user authentication.
+
 **403** - Forbidden: The server understood the request, but refuses to authorize it.
+
 **404** - Not Found: The requested resource could not be found on the server.
+
 **405** - Method Not Allowed: The method specified in the request is not allowed for the resource identified by the URI.
+
 **500** - Internal Server Error: A generic error message indicating that the server encountered an unexpected condition.
+
 **503** - Service Unavailable: The server is currently unable to handle the request due to temporary overloading or maintenance of the server.
 
 ### <kbd>process</kbd> Module
@@ -220,3 +231,71 @@ fs.unlinkSync(`${dirPath}/file.txt`, (err) => {
     console.log("File deleted successfully!");
 })
 ```
+
+## Asynchronous basics in Node JS
+
+In synchronous operations, second task runs only after first is completed. In contrary, Asynchronous operations, second task do not wait to finish first task.
+
+**Note:** PHP is a *synchronous* programming language while JS is an *asynchronous* programming language.
+
+### Drawback of Async JS
+
+```javascript
+console.log("Start execution");
+
+let a = 10, b = 0;
+
+setTimeout(() => {
+    b = 20;
+}, 2000);
+
+console.log(a+b); // 10
+```
+
+### How to handle Async Data in Node JS
+
+## 1. Promises
+
+```javascript
+let a = 10, b = 0;
+
+let waitingData = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(30);
+    }, 2000)
+})
+
+waitingData.then((data) => {
+    b = data;
+    console.log(a + b);
+})
+```
+
+## Express JS
+
+```javascript
+const express = require('express');
+
+const app = express();
+
+// broswer url =>>>>> http://localhost:3000/?browser=mozilla%20firefox&name=prakhar
+app.get('/', (req, res) => {
+    console.log(`Data sent by the browser ${req.query.browser}`);
+    res.send(`Welcome ${req.query.name[0].toUpperCase() + req.query.name.slice(1)}`);
+})
+
+app.get('/about', (req, res) => {   
+    res.send("Welcome, About Page!");
+})
+
+app.get('/contact', (req, res) => {   
+    res.send("Welcome, Contact Page!");
+})
+
+app.listen(3000, () => {
+    console.log("App is running on port 3000");
+})
+```
+
+## Render HTML and JSON
+

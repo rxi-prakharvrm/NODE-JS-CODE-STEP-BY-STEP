@@ -1,29 +1,13 @@
-const fs = require('fs');
+const express = require('express');
 const path = require('path');
-const dirPath = path.join(__dirname, 'crud');
-const filePath = `${dirPath}/data.txt`;
+const app = express();
 
-// Create a directory
-fs.writeFileSync(filePath, "Hello World!");
+// path to public directory path
+const publicPath = path.join(__dirname, "public");
 
-// Read the file
-fs.readFile(filePath, 'utf-8', (err, file) => {
-    if(!err) {
-        console.log(file);
-    } else {
-        console.log("Error occurred!");
-    }
-})
+// To load static content from publicPath
+app.use(express.static(publicPath));
 
-// rename the file
-fs.rename(filePath, `${dirPath}/file.txt`, (err) => {
-    console.log("File renamed successfully!");
-});
-
-// delete the file
-fs.unlinkSync(`${dirPath}/file.txt`, (err) => {
-    if(err) {
-        console.log(err);
-    }
-    console.log("File deleted successfully!");
+app.listen(3000, () => {
+    console.log("App is running on port 3000");
 })
